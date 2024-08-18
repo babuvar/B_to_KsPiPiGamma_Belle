@@ -1,0 +1,15 @@
+mkdir dir{1..38}
+for i in $(seq 1 38)
+do 
+mv `ls * | grep "evt" | head -n 3` dir$i;
+done
+
+
+
+
+
+
+
+
+
+

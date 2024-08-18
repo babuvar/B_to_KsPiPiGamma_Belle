@@ -1,0 +1,17 @@
+
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_0.dec vpho-withskimming-DstP.conf 550 550
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_1.dec vpho-withskimming-DstP.conf 550 550
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_2.dec vpho-withskimming-DstP.conf 550 550
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_3.dec vpho-withskimming-DstP.conf 550 550
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_4.dec vpho-withskimming-DstP.conf 550 550
+./runEvtgen lum-Y5S.txt D0toPhiGamma_550_Y5s_5.dec vpho-withskimming-DstP.conf 550 550
+
+
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_0.dec vpho-withskimming-DstM.conf 550 550
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_1.dec vpho-withskimming-DstM.conf 550 550
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_2.dec vpho-withskimming-DstM.conf 550 550
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_3.dec vpho-withskimming-DstM.conf 550 550
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_4.dec vpho-withskimming-DstM.conf 550 550
+./runEvtgen lum-Y5S.txt D0BtoPhiGamma_550_Y5s_5.dec vpho-withskimming-DstM.conf 550 550
+
+ 

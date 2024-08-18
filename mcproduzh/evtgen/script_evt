@@ -1,0 +1,16 @@
+
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_0.dec vpho-withskimming-DstP.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_1.dec vpho-withskimming-DstP.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_2.dec vpho-withskimming-DstP.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_3.dec vpho-withskimming-DstP.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_4.dec vpho-withskimming-DstP.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0toPhiGamma_5200_5.dec vpho-withskimming-DstP.conf 5200 5200
+
+
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_0.dec vpho-withskimming-DstM.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_1.dec vpho-withskimming-DstM.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_2.dec vpho-withskimming-DstM.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_3.dec vpho-withskimming-DstM.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_4.dec vpho-withskimming-DstM.conf 5200 5200
+./runEvtgen nBB-Y4S.txt D0BtoPhiGamma_5200_5.dec vpho-withskimming-DstM.conf 5200 5200
+ 

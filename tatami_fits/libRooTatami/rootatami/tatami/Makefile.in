@@ -1,0 +1,23 @@
+MAKE = gmake
+
+srcdir := $(subst config/../,,@srcdir@)
+top_srcdir := $(subst config/../,,@top_srcdir@)
+VPATH := $(subst config/../,,@srcdir@)
+
+BELLE_CONFIG_DIR = @BELLE_CONFIG_DIR@
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+packagedir = .
+
+PACKAGE_HEADER_DIR = $(PACKAGE)
+export PACKAGE_HEADER_DIR
+BELLE_ROUTE = @BELLE_ROUTE@
+export BELLE_ROUTE
+
+SUBDIRS = src tatami
+MAINDIRS = mains 
+
+include $(BELLE_CONFIG_DIR)/Makefile.subdirs
+

@@ -1,0 +1,16 @@
+# Define Aliases
+Alias Mytau+ tau+
+Alias Mytau- tau-
+ChargeConj Mytau+ Mytau-
+
+Decay vpho
+0.5 Mytau+ tau-      PHOTOS                VLL;
+0.5 tau+ Mytau-      PHOTOS                VLL;
+Enddecay
+
+Decay Mytau-
+1.0 K-  nu_tau        PHOTOS TAUSCALARNU;
+Enddecay
+CDecay Mytau+
+
+End

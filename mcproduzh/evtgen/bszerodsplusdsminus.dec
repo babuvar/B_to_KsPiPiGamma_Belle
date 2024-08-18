@@ -1,0 +1,50 @@
+#
+# Aliases
+# Alias will have the same properties as the original 
+# particle except the decay table
+#
+Alias MyBs0 B_s0
+Alias Myanti-Bs0 anti-B_s0
+ChargeConj MyBs0 Myanti-Bs0
+
+Alias MyBs*0 B_s*0
+Alias Myanti-Bs*0 anti-B_s*0
+ChargeConj MyBs*0 Myanti-Bs*0 
+
+Alias MyDs+ D_s+
+Alias MyDs- D_s-
+ChargeConj MyDs+ MyDs-
+
+#
+# Y(5S) -> Bs*0 anti-Bs*0
+# One B decays to signal mode, while the other to generic decay modes
+#
+Decay Upsilon(5S)
+0.5 MyBs*0 anti-B_s*0	PHSP;
+0.5 B_s*0 Myanti-Bs*0	PHSP;
+Enddecay
+
+Decay MyBs*0
+1.000   MyBs0      gamma     VSP_PWAVE;
+Enddecay
+
+# 
+# CDecay
+# CDecay automatically creates the decay table for charge conjugated particle
+# (to use this feature Alias has to be defined)
+#
+CDecay Myanti-Bs*0
+
+Decay MyBs0
+1.0000 MyDs-  MyDs+        PHOTOS PHSP;
+Enddecay
+
+CDecay Myanti-Bs0
+
+Decay MyDs+
+1.0000 K+ K- pi+ PHOTOS PHSP;
+Enddecay
+
+CDecay MyDs-
+
+End

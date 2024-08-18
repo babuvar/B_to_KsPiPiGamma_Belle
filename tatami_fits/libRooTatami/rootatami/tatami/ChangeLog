@@ -1,0 +1,7 @@
+This is a change log file for tatami.
+Whenever you update this package, while you are editing the source file with
+emacs simply type "C-x 4 a" to make a log entry in the ChangeLog file.
+When the "C-x 4 a" command is issued for the first time it will ask you
+where the ChangeLog file is. The ChangeLog file for your package is located
+at the top directory of your package. (this file) If this file has not been
+added yet to the cvs repository, please do "cvs add ChangeLog and cvs ci."

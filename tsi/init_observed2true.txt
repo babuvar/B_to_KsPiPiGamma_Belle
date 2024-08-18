@@ -1,0 +1,29 @@
+### init_observed2true.txt
+
+
+# Values from HFLAV-2022
+phi1		22.2	# [deg]
+phi3		65.9	# [deg]
+
+
+# quoted from Yusa-san's email on 2011/02/28 (original texts in BN1149)
+# SP == 2r' sin(2phi1+phi3+delta') =  0.00964221 +0.00731227/-0.0073128
+# SM == 2r' sin(2phi1+phi3-delta') = -0.00672843 +0.00730893/-0.00730847
+rTSI		1.1822137163e-02
+deltaTSI	273.76690783	# [deg]
+
+
+# observedAcp	+0.1
+# observedScp	+0.7
+observedAcp	+0.101151
+observedScp	+0.708060
+
+N_cpod_SLtag_qpos	0.2
+N_cpod_SLtag_qneg	0.2
+N_cpod_HADtag_qpos	0.8
+N_cpod_HADtag_qneg	0.8
+N_cpev_SLtag_qpos	0.2
+N_cpev_SLtag_qneg	0.2
+N_cpev_HADtag_qpos	0.8
+N_cpev_HADtag_qneg	0.8
+

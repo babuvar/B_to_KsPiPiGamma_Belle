@@ -1,0 +1,20 @@
+ MACRO test_tatami
+   mess 'KUMAC for test tatami package'
+   shell 'test_tatami'
+ RETURN
+ 
+ MACRO plot
+   file = [1]
+   vec/read x,y1,y2,dy,asym [file]
+   null -20.0 20.0 -1 1
+   set PLCI 2
+   graph $VDIM(x,1) x y1 c
+   set PLCI 4
+   graph $VDIM(x,1) x y2 c
+   set PLCI 3
+   graph $VDIM(x,1) x dy c
+   set PLCI 6
+   graph $VDIM(x,1) x asym c
+   set PLCI 1
+ RETURN
+ 

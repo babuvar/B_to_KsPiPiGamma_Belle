@@ -1,0 +1,170 @@
+#!/bin/bash
+
+# Parameters
+# 1: nBB.txt <- file containing in first column expNo and in second its luminosity
+# 2: name of user decay table file 
+# 3: Evtgen module parameters config file: BB, Bs, charm
+# 4: 
+
+if [ $# != 5 ]; then
+  echo "Not enough imput arguments!"
+  echo "Usage: ./runEvtgen nBB.txt userDecayTable.dec EvtgenConfigFile TotalNumberOfEvents EventsPerJob"
+  exit 1
+fi
+
+# Make sure we get file name as command line argument
+# Else read it from standard input device
+if [ "$1" == "" ]; then
+   echo "Missing input file!"
+   exit 1
+else
+   FILE="$1"
+   # make sure file exist and readable
+   if [ ! -f $FILE ]; then
+  	echo "$FILE: does not exists"
+  	exit 1
+   elif [ ! -r $FILE ]; then
+  	echo "$FILE: can not read"
+  	exit 2
+   fi
+fi
+
+if [ "$2" == "" ]; then
+   echo "Missing input user decay table file!"
+   exit 1
+else
+   userDecayFile="$2"
+   # make sure file exist and readable
+   if [ ! -f $userDecayFile ]; then
+        echo "$userDecayFile: does not exists"
+        exit 1
+   elif [ ! -r $userDecayFile ]; then
+        echo "$userDecayFile: can not read"
+        exit 2
+   fi
+fi   
+userDecay=$(echo $userDecayFile | awk -F "." '{ print $1 }')
+
+if [ "$3" == "" ]; then
+   echo "MC type is missing (BB, Bs, charm)"
+   exit 1
+else
+   type=$3
+   # make sure file exist and readable
+   if [ ! -f $type ]; then
+       echo "$type: does not exists"
+       exit 1
+   elif [ ! -r $type ]; then
+       echo "$type: can not read"
+       exit 2
+   fi
+fi
+
+
+if [ "$4" == "" ]; then
+   echo "Total number of events to be generated missing!"
+   exit 1
+else
+   genEvents="$4"
+fi
+
+if [ "$5" == "" ]; then
+   echo "Maximal number of events per job missing!"
+   exit 1
+else
+   eventsPerJob="$5"
+fi
+
+mkdir -p "./log/${userDecay}"
+mkdir -p "./gen/${userDecay}"
+
+# read $FILE using the file descriptors
+# Set loop separator to end of line
+BAKIFS=$IFS
+IFS=$(echo -en "\n\b") 
+exec 3<&0
+exec 0<"$FILE"
+
+# first sum over luminosity
+sum=0
+while read -r line
+do
+
+char_1=${line:0:1}
+if [ $char_1 != '#' ] ; then
+
+F2=$(echo $line | awk '{ print $2 }')
+sum=`echo "2 k $F2 $sum + p q" | dc`
+
+fi
+done
+
+echo "Total Luminosity = "$sum
+echo "Will scale number of events for each experiment accordingly. Total sum of generated events will be "$genEvents
+
+BAKIFS=$IFS
+IFS=$(echo -en "\n\b")
+exec 3<&0
+exec 0<"$FILE"
+
+while read -r line
+do
+
+char_1=${line:0:1}
+if [ $char_1 != '#' ] ; then
+
+Exp=$(echo $line | grep -v "^#" | awk '{ print $1 }')
+ExpLum=$(echo $line | grep -v "^#" | awk '{ print $2 }')
+
+weight=`echo "scale=8; $ExpLum/$sum" | bc`
+
+evts=`echo "$weight*$genEvents" | bc -l`
+evts1=`echo "$evts+0.5" | bc -l`
+evts2=$(echo $evts1 | awk -F "." '{ print $1 }')
+
+echo '**** Exp = '$Exp': generating '$evts2' events'
+
+expno=`echo $Exp | sed s/'[a-z]'//`        # 7, 07 19 etc.
+expdiv=`echo $Exp | sed s/'[0-9]'//g`      #        a etc.
+expno2=`printf "%02d" $expno` # 07 07 19 etc.
+expno6=`printf "%06d" $expno` # 000007 000007 000019 etc
+basfexp=`echo ""$expno2$expdiv`
+gsimexp=$expno
+
+startedEvts=0
+startedEvts=$(( $startedEvts+$eventsPerJob ))
+
+job=0
+while [ $startedEvts -le $evts2 ]
+do
+echo 'Starting job '$job' with '$eventsPerJob' events'
+skript='evtgen_exp_'$basfexp'_'$userDecay'_'$job'.csh'
+./createEvtgenBASFScript.csh $userDecay $job $expno $eventsPerJob $type $basfexp > $skript
+chmod u+x $skript
+bsub -q s ./$skript
+
+
+startedEvts=$(( $startedEvts+$eventsPerJob ))
+job=$(( $job + 1))
+
+done
+
+startedEvts=$(( $startedEvts-$eventsPerJob ))
+startedEvts=$(( $evts2 - $startedEvts))
+if [ $startedEvts != 0 ] ; then
+echo 'Starting job '$job' with '$startedEvts' events with '$userDecay
+skript='evtgen_exp_'$basfexp'_'$userDecay'_'$job'.csh'
+./createEvtgenBASFScript.csh $userDecay $job $expno $startedEvts $type $basfexp > $skript
+chmod u+x $skript
+bsub -q s ./$skript
+fi
+fi
+
+sleep 2
+
+done
+exec 0<&3
+ 
+# restore $IFS which was used to determine what the field separators are
+IFS=$BAKIFS
+exit 0

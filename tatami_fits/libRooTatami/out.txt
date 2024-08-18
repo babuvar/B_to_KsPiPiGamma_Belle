@@ -1,0 +1,771 @@
+@@@@@@@@@   dt_resolution_const.cc @@@@@@@@@
+@@@@@@@@@   RooDtBkg.cc @@@@@@@@@
+279,281c279
+< 	//double pdf = in_f_delt * prompt_part + (1 - in_f_delt) * lifetime_part; //all other case we should use the original PDF
+< 	double pdf = prompt_part; // we use double Gaussian only for J/psi pi0 as used in the previous analysis
+< 
+---
+> 	double pdf = in_f_delt * prompt_part + (1 - in_f_delt) * lifetime_part;
+@@@@@@@@@   RooDtCPSignal.cc @@@@@@@@@
+22d21
+< 
+170,221d168
+<         Belle::dtres_param_t* param = Belle::get_dtres_param((int)expno, (int)mc);
+<         
+<         //following lines for the calculation of systematic uncertanties due to resolution function
+<         //if(expno<30){
+< 	  //param->Srec[0] =+7.046620e-01-1.065471e-01;}//+1.714002e-01;}
+< 	  //param->Srec[1] =+2.120840e-01-4.704013e-02;}//+4.347115e-02;}
+< //param->ftl_rec_mlt[0] =0+0;}
+< //param->Stl_rec_mlt = 1+0;}//
+< 	  //param->Sasc[1] = +2.366200e-01-5.605924e-02;}//+3.743452e-02;}
+< 	  //param->Sasc[0] = +4.834940e-01-7.318439e-02;}//+2.820590e-01;}
+< 
+< 	  //param->Snp_global =+1.057080e+00-1.630550e-01;}//+1.168773e-01;}
+< 	  //param->Smn_rec =  ;}  
+< 
+< //param->Stl_rec= +3.662940e+00+3.616785e+00;}
+< //param->ftl_rec=+1.110420e-01+1.547901e-02;}
+< 	  //param->Smn_asc= +9.798010e-01-3.636229e-02;}//+2.777485e-01;}  
+< 
+< //param->Stl_asc=  +3.662940e+00+3.616785e+00;}
+< //param->ftl_asc=+1.110420e-01+1.547901e-02;}
+<  
+< 	  //param->fd_np_sgl[0][0]= +7.817180e-01-1.081850e-02;}//+1.033570e-02;}
+< 
+< 	  //param->fp_np_sgl[0]=+8.186460e-01-1.847270e-02;}//+1.728010e-02;}
+< 
+< 	  //param->tau_np_p_sgl[0][0] =+1.847670e+00-8.060650e-02;}//+8.514250e-02;}
+< 
+< 	  //param->tau_np_n_sgl[0][0] =+2.041140e+00-2.431610e-01;}//+2.773060e-01; }
+< 
+< 	  //param->fd_np_mlt[0][0]=+4.664410e-01-4.109540e-02;}//+4.014220e-02;}
+< 
+< 	  //param->fd_np_mlt[0][1]=+6.371510e-01-4.082290e-02;}//+3.985010e-02;}
+< 
+< 	  //param->fd_np_st_mlt[0]=+2.706290e-01-7.026490e-02;}//+7.042270e-02;}
+< 
+< 	  //param->fd_np_xi_mlt[0]=-2.204070e-01-1.527740e-02;}//+1.581500e-02;}
+< 	  //param->fd_np_stxi_mlt[0]=+2.228050e-01-3.001790e-02;}//+2.917370e-02;}
+< 	  //param->fn_np_mlt[0]=+1.232800e-01-7.267580e-03;}//+7.256960e-03;}
+< 	  //param->tau_np_p_mlt[0][0]=-5.202290e-03-1.535860e-02;}//+1.544320e-02;}
+< 	  //param->tau_np_p_mlt[0][1]=+7.168080e-01-3.861560e-02;}//+3.880040e-02;}
+< 	  //param->tau_np_p_xi_mlt[0]=-2.966400e-02-5.304540e-03;}//+5.370360e-03;}
+< 	  // param->tau_np_p_stxi_mlt[0]=+2.514870e-01-1.437050e-02;}//+1.442400e-02;}
+< 	  //param->tau_np_n_mlt[0][0]=+4.517970e-02-2.683960e-02;}//+2.696420e-02;}
+< 	  //param->tau_np_n_mlt[0][1]= +5.151980e-01-6.260460e-02;}//+6.384480e-02;}
+< 	  //param->tau_np_n_xi_mlt[0]=-7.831950e-02-1.309970e-02;}//+1.321680e-02;}
+< 	  //param->tau_np_n_stxi_mlt[0]=+4.304680e-01-3.318160e-02;}//+3.442280e-02;}
+< 	  //param->sig_ol=+4.369930e+01-4.845010e+00;}//+1.496606e+01;}
+< 	  //param->fol_sgl=+3.700380e-02-1.079975e-02;}//+6.532360e-03;}
+< 	  //param->fol_mul=+1.141840e-04+5.683895e-05;}
+<         //==================================================================================
+<         
+< 
+227c174
+< 						   dtres_param);//*0.5;
+---
+> 					dtres_param);
+250d196
+<         //double pdf_sig = m_L_e; //only for lifetime fit
+254d199
+< //
+256c201
+< 	  return pdf_sig / (2.0*m_int_L_e);
+---
+> 		return pdf_sig / m_int_L_e;
+@@@@@@@@@   RooDtLifetime.cc @@@@@@@@@
+11c11
+< #include "RooDtLifetime.h"
+---
+> #include "RooDtLifetime.h" 
+13,15c13
+< #include "RooAbsCategory.h"
+< #include "RooCategory.h"
+< #include "RooRealConstant.h"
+---
+> #include "RooAbsCategory.h" 
+18,19d15
+< #include "RooCustomizer.h"
+< 
+24d19
+< 
+27,28c22,23
+< 		RooAbsReal& _tau_b0,
+< 		RooAbsCategory& _expno,
+---
+> 		RooAbsReal& _tau_b,
+> 		RooAbsReal& _expno,
+40,44c35
+< 		RooAbsCategory& _flavor,
+< 		RooAbsReal& _wtag,
+< 		RooAbsReal& _delta_wtag,
+< 		double _delta_m,
+< 		bool _mc,
+---
+> 		bool _is_mc,
+49c40
+< 		tau_b0("tau_b0", "tau_b0", this, _tau_b0),
+---
+> 		tau_b("tau_b", "tau_b", this, _tau_b),
+62,66c53
+< 		flavor_cat("flavor_cat", "flavor", this, _flavor),
+< 		wtag("wtag", "wtag", this, _wtag),
+< 		delta_wtag("delta_wtag", "delta_wtag", this, _delta_wtag),
+< 		delta_m(_delta_m),
+< 		mc(_mc),
+---
+> 		is_mc(_is_mc),
+75,76c62,63
+< 		RooAbsReal& _tau_b0,
+< 		RooAbsCategory& _expno,
+---
+> 		RooAbsReal& _tau_b,
+> 		RooAbsReal& _expno,
+88,92c75
+< 		RooAbsCategory& _flavor,
+< 		RooAbsReal& _wtag,
+< 		RooAbsReal& _delta_wtag,
+< 		double _delta_m,
+< 		bool _mc,
+---
+> 		bool _is_mc,
+99c82
+< 		tau_b0("tau_b0", "tau_b0", this, _tau_b0),
+---
+> 		tau_b("tau_b", "tau_b", this, _tau_b),
+112,116c95
+< 		flavor_cat("flavor_cat", "flavor", this, _flavor),
+< 		wtag("wtag", "wtag", this, _wtag),
+< 		delta_wtag("delta_wtag", "delta_wtag", this, _delta_wtag),
+< 		delta_m(_delta_m),
+< 		mc(_mc),
+---
+> 		is_mc(_is_mc),
+126c105
+< 		tau_b0("tau_b0", this, other.tau_b0),
+---
+> 		tau_b("tau_b", this, other.tau_b),
+139,143c118
+< 		flavor_cat("flavor_cat", this, other.flavor_cat),
+< 		wtag("wtag", this, other.wtag),
+< 		delta_wtag("delta_wtag", this, other.delta_wtag),
+< 		delta_m(other.delta_m),
+< 		mc(other.mc),
+---
+> 		is_mc(other.is_mc),
+152,154d126
+< 
+< 	const double amix = flavor_cat * (1 - 2 * wtag);
+< 	const double cexp = 1. - flavor_cat * delta_wtag;
+157c129,130
+< 	Belle::dtres_param_t* dtres_param = Belle::get_dtres_param((int)expno, (int)mc);
+---
+> 	Belle::dtres_param_t* dtres_param = Belle::get_dtres_param(expno, is_mc);
+> 	//Belle::dtres_param_t* dtres_param = Belle::get_dtres_param(expno, is_mc, Belle::dt_resol_global::ichep2002_80);
+159,173c132,142
+< 	double m_L_e =
+< 			Belle::EfRkRdetRnp_fullrec(dt, 0, tau_b0, a_k, c_k,
+< 					(int)rec_vtntrk, rec_vterr, rec_vtchi2, (int)rec_vtndf,
+< 					(int)asc_vtntrk, asc_vterr, asc_vtchi2, (int)asc_vtndf,
+< 					(int)keeptagl,
+< 					dtres_param);
+< 
+< 	double m_int_L_e =
+< 			Belle::norm_EfRkRdetRnp_fullrec(dt_ll, dt_ul, 0, tau_b0, a_k, c_k,
+< 					(int)rec_vtntrk, rec_vterr, rec_vtchi2, (int)rec_vtndf,
+< 					(int)asc_vtntrk, asc_vterr, asc_vtchi2, (int)asc_vtndf,
+< 					(int)keeptagl,
+< 					dtres_param);
+< 
+<         double pdf_sig = cexp*m_L_e; //only for lifetime fit
+---
+> 	double m_L_e = Belle::EfRkRdetRnp_fullrec(dt, 0, tau_b, a_k, c_k,
+> 			rec_vtntrk, rec_vterr, rec_vtchi2, rec_vtndf,
+> 			asc_vtntrk, asc_vterr, asc_vtchi2, asc_vtndf,
+> 			keeptagl,
+> 			dtres_param);
+> 
+> 	double m_int_L_e = Belle::norm_EfRkRdetRnp_fullrec(dt_ll, dt_ul, 0, tau_b, a_k, c_k,
+> 			rec_vtntrk, rec_vterr, rec_vtchi2, rec_vtndf,
+> 			asc_vtntrk, asc_vterr, asc_vtchi2, asc_vtndf,
+> 			keeptagl,
+> 			dtres_param);
+176,177c145
+< 		return Belle::AddOutlierWithBkg((int)expno,dt, 1,pdf_sig,pdf_sig,(int)rec_vtntrk, (int)asc_vtntrk,dtres_param, m_int_L_e, m_int_L_e, dt_ll, dt_ul, alpha, 1);
+<                 //return Belle::AddOutlier(expno, dt, m_L_e, rec_vtntrk, asc_vtntrk, dtres_param, m_int_L_e, dt_ll, dt_ul, alpha);
+---
+> 		return Belle::AddOutlier(expno, dt, m_L_e, rec_vtntrk, asc_vtntrk, dtres_param, m_int_L_e, dt_ll, dt_ul, alpha);
+179c147
+< 	  return pdf_sig / (2.0*m_int_L_e);
+---
+> 		return (m_L_e / m_int_L_e);
+183c151,154
+< 	if (matchArgs(allVars, analVars, dt)) return 1;
+---
+> 	if (matchArgs(allVars, analVars, dt))
+> 		return 1;
+> 	std::cerr << "INFO: Unsupported analytical integral was requested in RooDtLifetime::getAnalyticalIntegral(...) " <<
+> 			"--> Numeric integration will be used." <<  std::endl;
+188,189c159,163
+< 	assert(code == 1);
+< 	return 1;
+---
+> 	if(code == 1)
+> 		return 1;
+> 	std::cerr << "ERROR: Unsupported analytical integral code=" << code << " in RooDtLifetime::analyticalIntegral(...) " <<
+> 			"--> Return 0" << std::endl;
+> 	return 0;
+@@@@@@@@@   RooTatami.cc @@@@@@@@@
+2c2
+< // File generated by rootcint at Fri May  5 06:25:09 2023
+---
+> // File generated by rootcint at Sat May  6 01:27:28 2023
+257c257
+<       tau_b0.Streamer(R__b);
+---
+>       tau_b.Streamer(R__b);
+270,274c270
+<       flavor_cat.Streamer(R__b);
+<       wtag.Streamer(R__b);
+<       delta_wtag.Streamer(R__b);
+<       R__b >> const_cast<  double &>( delta_m );
+<       R__b >> const_cast<  bool &>( mc );
+---
+>       R__b >> const_cast<  bool &>( is_mc );
+284c280
+<       tau_b0.Streamer(R__b);
+---
+>       tau_b.Streamer(R__b);
+297,301c293
+<       flavor_cat.Streamer(R__b);
+<       wtag.Streamer(R__b);
+<       delta_wtag.Streamer(R__b);
+<       R__b << const_cast<  double &>( delta_m );
+<       R__b << const_cast<  bool &>( mc );
+---
+>       R__b << const_cast<  bool &>( is_mc );
+318,319c310,311
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "tau_b0", &tau_b0);
+<       R__insp.InspectMember(tau_b0, "tau_b0.");
+---
+>       R__insp.Inspect(R__cl, R__insp.GetParent(), "tau_b", &tau_b);
+>       R__insp.InspectMember(tau_b, "tau_b.");
+344,351c336
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "flavor_cat", &flavor_cat);
+<       R__insp.InspectMember(flavor_cat, "flavor_cat.");
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "wtag", &wtag);
+<       R__insp.InspectMember(wtag, "wtag.");
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "delta_wtag", &delta_wtag);
+<       R__insp.InspectMember(delta_wtag, "delta_wtag.");
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "delta_m", &delta_m);
+<       R__insp.Inspect(R__cl, R__insp.GetParent(), "mc", &mc);
+---
+>       R__insp.Inspect(R__cl, R__insp.GetParent(), "is_mc", &is_mc);
+728,729c713,714
+<    case 23:
+<      //m: 23
+---
+>    case 19:
+>      //m: 19
+734c719
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+740,743c725,726
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (bool) G__int(libp->para[21])
+< , (double) G__double(libp->para[22]));
+---
+> , (bool) G__int(libp->para[16]), (bool) G__int(libp->para[17])
+> , (double) G__double(libp->para[18]));
+748c731
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+754,757c737,738
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (bool) G__int(libp->para[21])
+< , (double) G__double(libp->para[22]));
+---
+> , (bool) G__int(libp->para[16]), (bool) G__int(libp->para[17])
+> , (double) G__double(libp->para[18]));
+760,761c741,742
+<    case 22:
+<      //m: 22
+---
+>    case 18:
+>      //m: 18
+766c747
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+772,774c753
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (bool) G__int(libp->para[21]));
+---
+> , (bool) G__int(libp->para[16]), (bool) G__int(libp->para[17]));
+779c758
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+785,787c764
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (bool) G__int(libp->para[21]));
+---
+> , (bool) G__int(libp->para[16]), (bool) G__int(libp->para[17]));
+790,791c767,768
+<    case 21:
+<      //m: 21
+---
+>    case 17:
+>      //m: 17
+796c773
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+802,804c779
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]));
+---
+> , (bool) G__int(libp->para[16]));
+809c784
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+815,817c790
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]));
+---
+> , (bool) G__int(libp->para[16]));
+832,833c805,806
+<    case 25:
+<      //m: 25
+---
+>    case 21:
+>      //m: 21
+838c811
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+844,848c817,819
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]), (bool) G__int(libp->para[23])
+< , (double) G__double(libp->para[24]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]), (bool) G__int(libp->para[19])
+> , (double) G__double(libp->para[20]));
+853c824
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+859,863c830,832
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]), (bool) G__int(libp->para[23])
+< , (double) G__double(libp->para[24]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]), (bool) G__int(libp->para[19])
+> , (double) G__double(libp->para[20]));
+866,867c835,836
+<    case 24:
+<      //m: 24
+---
+>    case 20:
+>      //m: 20
+872c841
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+878,881c847,848
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]), (bool) G__int(libp->para[23]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]), (bool) G__int(libp->para[19]));
+886c853
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+892,895c859,860
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]), (bool) G__int(libp->para[23]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]), (bool) G__int(libp->para[19]));
+898,899c863,864
+<    case 23:
+<      //m: 23
+---
+>    case 19:
+>      //m: 19
+904c869
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+910,913c875,876
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]));
+918c881
+< , *(RooAbsCategory*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+---
+> , *(RooAbsReal*) libp->para[4].ref, *(RooAbsReal*) libp->para[5].ref
+924,927c887,888
+< , *(RooAbsCategory*) libp->para[16].ref, *(RooAbsReal*) libp->para[17].ref
+< , *(RooAbsReal*) libp->para[18].ref, (double) G__double(libp->para[19])
+< , (bool) G__int(libp->para[20]), (double) G__double(libp->para[21])
+< , (double) G__double(libp->para[22]));
+---
+> , (bool) G__int(libp->para[16]), (double) G__double(libp->para[17])
+> , (double) G__double(libp->para[18]));
+2369,2370c2330,2331
+<    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooRealProxy),-1,-1,2,"tau_b0=",0,(char*)NULL);
+<    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooCategoryProxy),-1,-1,2,"expno=",0,(char*)NULL);
+---
+>    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooRealProxy),-1,-1,2,"tau_b=",0,(char*)NULL);
+>    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooRealProxy),-1,-1,2,"expno=",0,(char*)NULL);
+2382,2386c2343
+<    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooCategoryProxy),-1,-1,2,"flavor_cat=",0,(char*)NULL);
+<    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooRealProxy),-1,-1,2,"wtag=",0,(char*)NULL);
+<    G__memvar_setup((void*)0,117,0,0,G__get_linked_tagnum(&G__RooTatamiLN_RooRealProxy),-1,-1,2,"delta_wtag=",0,(char*)NULL);
+<    G__memvar_setup((void*)0,100,0,1,-1,-1,-1,2,"delta_m=",0,(char*)NULL);
+<    G__memvar_setup((void*)0,103,0,1,-1,-1,-1,2,"mc=",0,(char*)NULL);
+---
+>    G__memvar_setup((void*)0,103,0,1,-1,-1,-1,2,"is_mc=",0,(char*)NULL);
+2482c2439
+<    G__memfunc_setup("RooDtLifetime",1303,G__RooTatami_764_0_2, 105, G__get_linked_tagnum(&G__RooTatamiLN_RooDtLifetime), -1, 0, 23, 1, 1, 0, 
+---
+>    G__memfunc_setup("RooDtLifetime",1303,G__RooTatami_764_0_2, 105, G__get_linked_tagnum(&G__RooTatamiLN_RooDtLifetime), -1, 0, 19, 1, 1, 0, 
+2484,2485c2441,2442
+< "u 'RooAbsReal' - 1 - _dt u 'RooAbsReal' - 1 - _tau_b0 "
+< "u 'RooAbsCategory' - 1 - _expno u 'RooAbsReal' - 1 - _costh "
+---
+> "u 'RooAbsReal' - 1 - _dt u 'RooAbsReal' - 1 - _tau_b "
+> "u 'RooAbsReal' - 1 - _expno u 'RooAbsReal' - 1 - _costh "
+2491,2493c2448
+< "u 'RooAbsCategory' - 1 - _flavor u 'RooAbsReal' - 1 - _wtag "
+< "u 'RooAbsReal' - 1 - _delta_wtag d - - 0 - _delta_m "
+< "g - - 0 - _mc g - - 0 'true' _addoutlier "
+---
+> "g - - 0 - _is_mc g - - 0 'true' _addoutlier "
+2495c2450
+<    G__memfunc_setup("RooDtLifetime",1303,G__RooTatami_764_0_3, 105, G__get_linked_tagnum(&G__RooTatamiLN_RooDtLifetime), -1, 0, 25, 1, 1, 0, 
+---
+>    G__memfunc_setup("RooDtLifetime",1303,G__RooTatami_764_0_3, 105, G__get_linked_tagnum(&G__RooTatamiLN_RooDtLifetime), -1, 0, 21, 1, 1, 0, 
+2497,2498c2452,2453
+< "u 'RooAbsReal' - 1 - _dt u 'RooAbsReal' - 1 - _tau_b0 "
+< "u 'RooAbsCategory' - 1 - _expno u 'RooAbsReal' - 1 - _costh "
+---
+> "u 'RooAbsReal' - 1 - _dt u 'RooAbsReal' - 1 - _tau_b "
+> "u 'RooAbsReal' - 1 - _expno u 'RooAbsReal' - 1 - _costh "
+2504,2506c2459
+< "u 'RooAbsCategory' - 1 - _flavor u 'RooAbsReal' - 1 - _wtag "
+< "u 'RooAbsReal' - 1 - _delta_wtag d - - 0 - _delta_m "
+< "g - - 0 - _mc d - - 0 - _dt_ll "
+---
+> "g - - 0 - _is_mc d - - 0 - _dt_ll "
+@@@@@@@@@   RooTatamiHelper.cc @@@@@@@@@
+130,147c130,147
+< 		vars.push_back(std::make_pair(m_icpv_dt, &dt));
+< 		vars.push_back(std::make_pair(m_icpv_deltae, &deltaE));
+< 		vars.push_back(std::make_pair(m_icpv_mbc, &mbc));
+< 		//vars.push_back(std::make_pair(m_icpv_exp, &expno));
+< 		vars.push_back(std::make_pair(m_icpv_costh, &CosThetaB));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_ntrk, &ntrk_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_ntrk, &ntrk_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_err, &z_err_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_err, &z_err_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_chi2, &chisq_tracks_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_chi2, &chisq_tracks_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_ndf, &dgf_tracks_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_ndf, &dgf_tracks_tag));
+< 		vars.push_back(std::make_pair(m_icpv_keeptagl, &keeptagl_tag));
+< 		vars.push_back(std::make_pair(m_icpv_ecms, &ecms));
+< 		vars.push_back(std::make_pair(m_icpv_wtag, &wtag));
+< 		vars.push_back(std::make_pair(m_icpv_delta_wtag, &delta_wtag));
+< 		vars.push_back(std::make_pair(m_icpv_ebeam, &ebeam));
+---
+> 		vars.push_back(make_pair(m_icpv_dt, &dt));
+> 		vars.push_back(make_pair(m_icpv_deltae, &deltaE));
+> 		vars.push_back(make_pair(m_icpv_mbc, &mbc));
+> 		//vars.push_back(make_pair(m_icpv_exp, &expno));
+> 		vars.push_back(make_pair(m_icpv_costh, &CosThetaB));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_ntrk, &ntrk_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_ntrk, &ntrk_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_err, &z_err_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_err, &z_err_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_chi2, &chisq_tracks_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_chi2, &chisq_tracks_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_ndf, &dgf_tracks_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_ndf, &dgf_tracks_tag));
+> 		vars.push_back(make_pair(m_icpv_keeptagl, &keeptagl_tag));
+> 		vars.push_back(make_pair(m_icpv_ecms, &ecms));
+> 		vars.push_back(make_pair(m_icpv_wtag, &wtag));
+> 		vars.push_back(make_pair(m_icpv_delta_wtag, &delta_wtag));
+> 		vars.push_back(make_pair(m_icpv_ebeam, &ebeam));
+177c177
+< 	std::cout << "number of events for fit: " << r_set.numEntries() << std::endl;
+---
+> 	cout << "number of events for fit: " << r_set.numEntries() << endl;
+254,255c254
+< 		std::string scan_string;
+<                 scan_string = "%d %d %d %d %d %d %le %le %le %le %le %d %le %le %d %le %d %le %le %le %d %le %d %le %f %d %d %le %le %le %le %le %le %le \n";
+---
+> 		string scan_string = "%d %d %d %d %d %d %le %le %le %le %le %d %le %le %d %le %d %le %le %le %d %le %d %le %f %d %d %le %le %le %le %le %le %le \n";
+328,345c327,344
+< 		vars.push_back(std::make_pair(m_icpv_dt, &dt));
+< 		vars.push_back(std::make_pair(m_icpv_deltae, &deltaE));
+< 		vars.push_back(std::make_pair(m_icpv_mbc, &mbc));
+< 		//vars.push_back(std::make_pair(m_icpv_exp, &expno));
+< 		vars.push_back(std::make_pair(m_icpv_costh, &CosThetaB));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_ntrk, &ntrk_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_ntrk, &ntrk_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_err, &z_err_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_err, &z_err_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_chi2, &chisq_tracks_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_chi2, &chisq_tracks_tag));
+< 		vars.push_back(std::make_pair(m_icpv_rec_vt_ndf, &dgf_tracks_sig));
+< 		vars.push_back(std::make_pair(m_icpv_asc_vt_ndf, &dgf_tracks_tag));
+< 		vars.push_back(std::make_pair(m_icpv_keeptagl, &keeptagl_tag));
+< 		vars.push_back(std::make_pair(m_icpv_ecms, &ecms));
+< 		vars.push_back(std::make_pair(m_icpv_wtag, &wtag));
+< 		vars.push_back(std::make_pair(m_icpv_delta_wtag, &delta_wtag));
+< 		vars.push_back(std::make_pair(m_icpv_ebeam, &ebeam));
+---
+> 		vars.push_back(make_pair(m_icpv_dt, &dt));
+> 		vars.push_back(make_pair(m_icpv_deltae, &deltaE));
+> 		vars.push_back(make_pair(m_icpv_mbc, &mbc));
+> 		//vars.push_back(make_pair(m_icpv_exp, &expno));
+> 		vars.push_back(make_pair(m_icpv_costh, &CosThetaB));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_ntrk, &ntrk_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_ntrk, &ntrk_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_err, &z_err_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_err, &z_err_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_chi2, &chisq_tracks_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_chi2, &chisq_tracks_tag));
+> 		vars.push_back(make_pair(m_icpv_rec_vt_ndf, &dgf_tracks_sig));
+> 		vars.push_back(make_pair(m_icpv_asc_vt_ndf, &dgf_tracks_tag));
+> 		vars.push_back(make_pair(m_icpv_keeptagl, &keeptagl_tag));
+> 		vars.push_back(make_pair(m_icpv_ecms, &ecms));
+> 		vars.push_back(make_pair(m_icpv_wtag, &wtag));
+> 		vars.push_back(make_pair(m_icpv_delta_wtag, &delta_wtag));
+> 		vars.push_back(make_pair(m_icpv_ebeam, &ebeam));
+348c347
+< 			vars.push_back(std::make_pair(d_readin[ri_var.second - 1], ri_var.first));
+---
+> 			vars.push_back(make_pair(d_readin[ri_var.second - 1], ri_var.first));
+367c366
+< 			expno.setIndex(7, false);
+---
+> 			expno.setIndex(1, false);
+378c377
+< 	std::cout << "number of events for fit: " << r_set.numEntries() << std::endl;
+---
+> 	cout << "number of events for fit: " << r_set.numEntries() << endl;
+457a457,642
+> 
+> //Only for testing purposes
+> void print_dtres_params(int expno, int mc){
+> 
+> Belle::dtres_param_t* dtres_param = Belle::get_dtres_param(expno, mc);
+> 
+> cout<<"-------------------------------"<<endl;
+> cout<<"dtres_param->Srec[0] = "<<dtres_param->Srec[0]<<endl;
+> cout<<"dtres_param->Srec[1] = "<<dtres_param->Srec[1]<<endl;
+> cout<<"dtres_param->Sasc[0] = "<<dtres_param->Sasc[0]<<endl;
+> cout<<"dtres_param->Sasc[1] = "<<dtres_param->Sasc[1]<<endl;
+> cout<<"-------------------------------"<<endl;
+> 
+> }
+> 
+> 
+> void dtres_systematics_b0(int item, double sigma, int expno, int mc){
+> 
+> Belle::dtres_systematics(Belle::dtres_items_fullrecon_b0[item], sigma, expno, mc);
+> 
+> 
+> }
+> 
+> double get_dtres_parVal_b0(int item, int subitem, int expno, int mc, string& parname){
+> 
+> Belle::dtres_param_t* param = Belle::get_dtres_param(expno, mc);
+> 
+> 
+> switch(item){
+>   case 0: //par-0
+>   parname = "Rdet_Srec0";
+>     return (param->Srec)[0];
+>   case 1: //par-1
+>   parname = "Rdet_Srec1";
+>     return (param->Srec)[1];
+>   case 2: //par-2
+>   parname = "Rdet_Sasc0";
+>     return (param->Sasc)[0];
+>   case 3: //par-3
+>   parname = "Rdet_Sasc1";
+>     return (param->Sasc)[1];
+>   case 4: //par-4
+>   parname = "Rnp_Snp";
+>     return param->Snp;
+>   case 5: //par-5
+>   parname = "Rnp_Snp_global";
+>     return param->Snp_global;
+>   case 6: //par-6
+>     if(subitem == 0){
+>   parname = "Rdet_Smn_onetrk_rec";
+>     return param->Smn_rec;}
+>     if(subitem == 1) {
+>   parname = "Rdet_Smn_onetrk_asc";
+>     return param->Smn_asc;}
+>   case 7: //par-7
+>     if(subitem == 0) {
+>   parname = "Rdet_Stl_onetrk_rec";
+>     return param->Stl_rec;}
+>     if(subitem == 1) {
+>   parname = "Rdet_Stl_onetrk_asc";
+>     return param->Stl_asc;}
+>   case 8: //par-8
+>     if(subitem == 0) {
+>   parname = "Rdet_ftl_onetrk_rec";
+>     return param->ftl_rec;}
+>     if(subitem == 1) {
+>   parname = "Rdet_ftl_onetrk_asc";
+>     return param->ftl_asc;}
+>   case 9: //par-9
+>     if(subitem == 0) {parname = "Rdet_rec_mlt_ftail0";}
+>     if(subitem == 1) {parname = "Rdet_rec_mlt_ftail1";}
+>     return (param->ftl_rec_mlt)[subitem];
+>   case 10: //par-10
+>   parname = "Rdet_rec_mlt_stail";
+>     return param->Stl_rec_mlt;
+>   case 11: //par-11
+>     if(subitem == 0) {parname = "Rdet_asc_mlt_ftail0";}
+>     if(subitem == 1) {parname = "Rdet_asc_mlt_ftail1";}
+>     return (param->ftl_asc_mlt)[subitem];
+>   case 12: //par-12
+>   parname = "Rdet_asc_mlt_stail";
+>     return param->Stl_asc_mlt;
+>   case 13: //par-13
+>   parname = "Rnp_fd_np_sgl0_Bzero";
+>     return (param->fd_np_sgl)[0][0];
+>   case 14: //par-14
+>   parname = "Rnp_fd_np_sgl1_Bzero";
+>     return (param->fd_np_sgl)[0][1];
+>   case 15: //par-15
+>   parname = "Rnp_fp_np_sgl_Bzero";
+>     return (param->fp_np_sgl)[0];
+>   case 16: //par-16
+>   parname = "Rnp_tau_np_p_sgl0_Bzero";
+>     return (param->tau_np_p_sgl)[0][0];
+>   case 17: //par-17
+>   parname = "Rnp_tau_np_p_sgl1_Bzero";
+>     return (param->tau_np_p_sgl)[0][1];
+>   case 18: //par-18
+>   parname = "Rnp_tau_np_n_sgl0_Bzero";
+>     return (param->tau_np_n_sgl)[0][0];
+>   case 19: //par-19
+>   parname = "Rnp_tau_np_n_sgl1_Bzero";
+>     return (param->tau_np_n_sgl)[0][1];
+>   case 20: //par-20
+>   parname = "Rnp_fd_np_mlt0_Bzero";
+>     return (param->fd_np_mlt)[0][0];
+>   case 21: //par-21
+>   parname = "Rnp_fd_np_mlt1_Bzero";
+>     return (param->fd_np_mlt)[0][1];
+>   case 22: //par-22
+>   parname = "Rnp_fd_np_st_mlt_Bzero";
+>     return (param->fd_np_st_mlt)[0];
+>   case 23: //par-23
+>   parname = "Rnp_fd_np_xi_mlt_Bzero";
+>     return (param->fd_np_xi_mlt)[0];
+>   case 24: //par-24
+>   parname = "Rnp_fd_np_stxi_mlt_Bzero";
+>     return (param->fd_np_stxi_mlt)[0];
+>   case 25: //par-25
+>   parname = "Rnp_fp_np_mlt_Bzero";
+>     return (param->fp_np_mlt)[0];
+>   case 26: //par-26
+>   parname = "Rnp_fn_np_mlt_Bzero";
+>     return (param->fn_np_mlt)[0];
+>   case 27: //par-27
+>   parname = "Rnp_tau_np_p_mlt0_Bzero";
+>     return (param->tau_np_p_mlt)[0][0];
+>   case 28: //par-28
+>   parname = "Rnp_tau_np_p_mlt1_Bzero";
+>     return (param->tau_np_p_mlt)[0][1];
+>   case 29: //par-29
+>   parname = "Rnp_tau_np_p_xi_mlt_Bzero";
+>     return (param->tau_np_p_xi_mlt)[0];
+>   case 30: //par-30
+>   parname = "Rnp_tau_np_p_stxi_mlt_Bzero";
+>     return (param->tau_np_p_stxi_mlt)[0];
+>   case 31: //par-31
+>   parname = "Rnp_tau_np_n_mlt0_Bzero";
+>     return (param->tau_np_n_mlt)[0][0];
+>   case 32: //par-32
+>   parname = "Rnp_tau_np_n_mlt1_Bzero";
+>     return (param->tau_np_n_mlt)[0][1];
+>   case 33: //par-33
+>   parname = "Rnp_tau_np_n_xi_mlt_Bzero";
+>     return (param->tau_np_n_xi_mlt)[0];
+>   case 34: //par-34
+>   parname = "Rnp_tau_np_n_stxi_mlt_Bzero";
+>     return (param->tau_np_n_stxi_mlt)[0];
+>   case 35: //par-35
+>   parname = "Rol_sig_ol";
+>     return param->sig_ol;
+>   case 36: //par-36
+>   parname = "Rol_fol_sgl";
+>     return param->fol_sgl;
+>   case 37: //par-37
+>   parname = "Rol_fol_mul";
+>     return param->fol_mul;
+>   case 38: //par-38
+>     if(subitem == 0) {
+>   parname = "Dt_cutoff_llmt";
+>     return Belle::dt_resol_global::dt_llmt;}
+>     if(subitem == 1) {
+>   parname = "Dt_cutoff_ulmt";
+>     return Belle::dt_resol_global::dt_ulmt;}
+> 
+>   default:
+>     return -999;
+> 
+> }
+> 
+> 
+> }
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 

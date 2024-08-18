@@ -1,0 +1,19 @@
+#
+# This is a template for basf_if/Makefile.link_options.in
+#
+LIB_PATH_LIST = $(packagedir)/lib/so $(packagedir)/lib $(BUILD_TOP_DIR)/lib/so $(BUILD_TOP_DIR)/lib
+
+ifneq "$(BELLE_LIB_DIR)" ""
+LIB_PATH_LIST += $(BELLE_LIB_DIR)/so $(BELLE_LIB_DIR)
+endif
+
+BELLE_LIBS = -l$(PACKAGE) -lbelleutil
+
+LINK_ARGS = $(NOT_TARGETS) $(patsubst %,-L%,$(LIB_PATH_LIST)) $(BELLE_LIBS) \
+    -L$(CERNLIB_LIB_DIR)/so -L$(CERNLIB_LIB_DIR) -lmathlib -lpacklib \
+    $(FLIBS) @LIBS@
+
+../bin/test_tatami:test_tatami.o
+../bin/test_tatami_for:test_tatami_for.o
+../bin/test_tatami_jpsiks:test_tatami_jpsiks.o
+../bin/test_tatami_toymc:test_tatami_toymc.o

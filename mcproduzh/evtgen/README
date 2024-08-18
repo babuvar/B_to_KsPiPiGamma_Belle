@@ -1,0 +1,86 @@
+Author: Anze Zupanc
+E-mail: anze.zupanc@kit.edu
+***************************
+
+In case of any questions/problems or possible improvements please contact me.
+
+***************************
+Version: 1.1
+Date   : 27/03/2010
+***************************
+
+Changes since version 1.0:
+- bug reported and fixed by Marko Bracko. Thanks Marko!
+  - script could start a job with 0 as number of events to be generated
+  - it turns out that BASF interprets 0 as 'generate events until infinity'
+  - this is avoided since version 1.1
+
+***************************
+
+This file describes the content and usage of automatic script for evtgen 
+generator file production. 
+
+Content:
+* README  - this file
+
+* nBB.txt - input file that holds the experiment number and its corresponding
+            luminosity for which the evtgen generator files will be produced
+            It is taken from Ushiroda-san's/Horii-san's gsim+reco tools (version 1.6.0)
+            you can use # to comment the input line
+
+* bzerodplusdminus.dec - example decay table file for the
+                         e-e+  -> Y(4S) -> B0 B0bar process
+                         B0    -> D+ D- 
+			 B0bar -> generic decay
+                         D+    -> K- pi+ pi+
+                         D+    -> K0s pi+
+			 (charge conjugation is implied)
+
+* bszerodsplusdsminus.dec - example decay table file for the
+                            e-e+ -> Y(5S) -> Bs* Bs*bar
+			    Bs*  -> Bs0 gamma
+                            Bs0  -> Ds- Ds+
+                            Ds+  -> K+ K- pi+
+                            (charge conjugation is implied)
+
+* d0kk.dec - example decay table file for the
+             e-e+ -> vpho -> c cbar -> D*+ X
+             D*+  -> D0 pi+
+             D0   -> K+ K-
+             (charge conjugation is NOT implied)
+
+* Y4S.conf - evtgen module parameters configuration file
+             since default values are set to the values for Upsilon(4S) process
+             nothing has to be done
+
+* Y5S.conf - evtgen module parameters configuration file for Upsilon(5S) process
+             sets the ROOT_PARTICLE to Upsilon(5S)
+
+* vpho.conf - to generate e+e- -> vpho ->
+
+* vpho-withskimming.conf - evtgen module parameters configuration file for e-e+ -> c cbar -> D*+ X
+                           sets the ROOT_PARTICLE to vpho and INCLUSIVE_PARTICLE to D*+ 
+                           c.c. is also saved (INCLUSIVE_MODE=2)
+
+* createEvtgenBASFscript.csh - this script is executed in runEvtgen script. It produces evtgen
+                               BASF script.
+
+* runEvtgen - script that submites jobs to "a" queu. One job per experiment, if the number of events
+              in job dosn't exceed the EventsPerJobLimi. In case it does, more jobs per experiment
+              will be submitted.
+
+              The usage is: 
+
+./runEvtgen nBB.txt [decaytablefile.dec] [evtgenModuleParamatersConfigFile] [TotalNomberOfEvents] [EventsPerJob]
+
+[TotalNumberOfEvents] : the total number of events you whish to generate
+                        script will calculate according to nBB.txt input how many events should
+                        be generated for each experiment according to its luminosity
+
+[EventsPerJob] : maximal number of events to be generated in one job
+                 
+
+Output:
+ - submitted BASF scripts 
+ - log files (in log directory)
+ - generator files (in mdst directory)

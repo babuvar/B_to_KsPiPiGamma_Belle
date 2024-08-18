@@ -1,0 +1,44 @@
+#SIGNAL FILE
+Alias MyK_S0 K_S0
+Alias MyK_S0_2 K_S0
+
+Alias MyK10 K_10
+Alias Myanti_K10 anti-K_10
+ChargeConj MyK10 Myanti_K10 
+
+Alias MyXsd Xsd
+Alias Myanti_Xsd anti-Xsd
+ChargeConj MyXsd Myanti_Xsd 
+
+Alias MyB0 B0
+Alias Myanti-B0 anti-B0
+ChargeConj MyB0 Myanti-B0
+
+Decay Upsilon(4S)
+1.000    MyB0 Myanti-B0 B0  anti-B0  VSS_BMIX dm;
+Enddecay
+
+Decay MyB0
+1.000    MyK10  gamma  PHSP_CP 0.0 dm 1 1.0 0.0 1.0 0.0;
+Enddecay
+CDecay Myanti-B0
+
+Decay MyK10
+1.00 rho0 MyK_S0  VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+
+Decay Myanti_K10
+1.00 rho0 MyK_S0_2 VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+
+Decay MyK_S0
+1.000    pi- pi+ PHSP;
+Enddecay
+
+Decay MyK_S0_2
+1.000    pi- pi+ PHSP;
+Enddecay
+
+
+
+End

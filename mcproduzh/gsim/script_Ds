@@ -1,0 +1,8 @@
+#! /bin/tcsh -f
+
+foreach i (/gpfs/fs02/belle/users/varghese/Charged_D_Analysis/mcproduzh/evtgen/gen/Ds*)
+
+#echo $i/
+./runGsimReco.csh $i/
+
+end
